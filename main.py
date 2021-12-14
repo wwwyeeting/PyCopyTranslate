@@ -8,17 +8,17 @@ import time
 import pyperclip
 
 
-GOOGLE_TRANSLATE_URL: Final[str] = r'http://translate.google.cn/m?q=%s&tl=%s&sl=%s'
+GOOGLE_TRANSLATE_URL: Final[str] = r'https://translate.google.cn/m?q=%s&tl=%s&sl=%s'
 
 
 def translate(text, to_language="auto", text_language="auto"):
     text = parse.quote(text)
     url = GOOGLE_TRANSLATE_URL % (text,to_language, text_language)
-    response = requests.get(url) # TODO: if use VPN, it will not work well.
+    response = requests.get(url)  # TODO: if use VPN, it will not work well.
     data = response.text
     expr = r'(?s)class="(?:t0|result-container)">(.*?)<'
     result = re.findall(expr, data)
-    if (len(result) == 0):
+    if len(result) == 0:
         return ""
 
     return html.unescape(result[0])
@@ -33,7 +33,7 @@ while True:
     try:
         if tmp_value != recent_value:
             recent_value = tmp_value
-            tsdata_done = translate(tmp_value, "zh-CN","en")
+            tsdata_done = translate(tmp_value, "zh-CN", "en")
             print(tsdata_done)
             pyperclip.copy(tsdata_done)
         time.sleep(0.5)
