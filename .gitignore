@@ -1,3 +1,5 @@
 /.venv/
 /.vscode/launch.json
 __pycache__/
+/ExeFile/build/
+/ExeFile/dist/
