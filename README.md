@@ -19,7 +19,8 @@ A tool used to copy and translate developed by Python.
 
     Wait some time, system will install the environment automatically.
 4. <a id="use-start"></a>
-   You will see a executable file named PyCopyTranslate.exe;
+   You will see a executable file named PyCopyTranslate.exe(or 
+   download at release page);
 5. Double click this, a CMD window will show;
 6. Copy the string you want to know, the CMD window will show the 
    translated result and fill the clipboard by this result by itself.
