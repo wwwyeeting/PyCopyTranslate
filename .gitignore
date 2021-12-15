@@ -3,3 +3,4 @@
 __pycache__/
 /ExeFile/build/
 /ExeFile/dist/
+/ExeFile/*.spec
