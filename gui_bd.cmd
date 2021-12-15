@@ -1,0 +1,2 @@
+cd ExeFile
+./GuiGenerate.cmd
