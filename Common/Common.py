@@ -6,6 +6,7 @@ from time import time, sleep
 
 
 STRING_NONE: Final[str] = ""
+SYSTEM_VERSION: Final[str] = r"V0.0.1"
 
 
 # event priority
