@@ -1,9 +1,9 @@
 # -*- coding: gbk -*-
 from abc import ABC, abstractmethod
-from threading import Timer
 from enum import IntEnum
 from Translate.TranslateAbc import LanguageEnum
 from Translate.Google import GoogleTranslate
+from Common.Common import EventPriority, GSched
 
 
 class TaskStatusEnum(IntEnum):
@@ -18,9 +18,11 @@ class ClipCaptureAbc(ABC):
         self.recent_value: str = ''
         self.translator = GoogleTranslate(LanguageEnum.ZH_CN, LanguageEnum.EN)
         self.status: TaskStatusEnum = TaskStatusEnum.InitDone
-        self._task = Timer(interval, function=self._DetectTask)
+        self._interval: float = interval
+        GSched.g_sched.enter(0, EventPriority.ClipCaptureEvent, self._DetectTask)
 
     def _DetectTask(self):
+        GSched.g_sched.enter(self._interval, EventPriority.ClipCaptureEvent, self._DetectTask)
         temp_value: str = self.StartDetectTask()
         if self.status == TaskStatusEnum.InitDone:
             self.InitDoneTask(temp_value)
@@ -30,11 +32,6 @@ class ClipCaptureAbc(ABC):
 
         elif self.status == TaskStatusEnum.ConvertDone:
             self.ConvertDoneTask(temp_value)
-
-        self._task.run()
-
-    def StartTask(self):
-        self._task.run()
 
     @abstractmethod
     def InitDoneTask(self, temp_value: str)-> None:
